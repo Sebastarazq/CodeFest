@@ -18,6 +18,10 @@ app.set('views','./views') // aca estaran los archivos
 // Carpeta publica
 app.use(express.static('public'))
 
+// Middleware para analizar datos del formulario (body-parser)
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 // Ruta para la página de inicio
 app.use('/',usuariosRoutes)
 

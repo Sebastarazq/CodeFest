@@ -1,0 +1,35 @@
+extends ../layout/index
+
+block content
+  .row
+    .col-md-6.mx-auto
+      .card
+        .card-header
+          h2 Regístrate
+        .card-body
+          form(action="/registro-usuario", method="post")
+            .form-group
+              label(for="nombre") Nombre
+              input#nombre.form-control(type="text" name="nombre" required)
+            .form-group
+              label(for="apellido") Apellido
+              input#apellido.form-control(type="text" name="apellido" required)
+            .form-group
+              label(for="email") Correo Electrónico
+              input#email.form-control(type="email" name="email" required)
+            .form-group
+              label(for="contrasena") Contraseña
+              input#contrasena.form-control(type="password" name="contrasena" required)
+            .form-group
+              label(for="confirmarContrasena") Confirmar Contraseña
+              input#confirmarContrasena.form-control(type="password" name="confirmarContrasena" required)
+            if errors
+              .alert.alert-danger
+                each error in errors
+                  p= error.msg
+            if error
+              .alert.alert-danger
+                p= error
+            button.btn.btn-primary(type="submit") Regístrate
+  .container.text-center
+    a(href="/iniciar-sesion") ¿Ya tienes una cuenta? Inicia Sesión

@@ -1,5 +1,5 @@
-
 import mongoose from 'mongoose';
+import bcrypt from 'bcrypt';
 
 const usuarioSchema = new mongoose.Schema({
   nombre: {
@@ -28,7 +28,7 @@ const usuarioSchema = new mongoose.Schema({
   amigos: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Usuario',
+      ref: 'usuario',
     },
   ],
   publicaciones: [
@@ -51,4 +51,20 @@ const usuarioSchema = new mongoose.Schema({
   ],
 });
 
-export default mongoose.model('Usuario', usuarioSchema);
+// Middleware para hash de la contraseña antes de guardarla
+usuarioSchema.pre('save', async function (next) {
+  if (!this.isModified('contrasena')) {
+    return next();
+  }
+  try {
+    const saltRounds = 10;
+    const hashContrasena = await bcrypt.hash(this.contrasena, saltRounds);
+    this.contrasena = hashContrasena;
+    next();
+  } catch (error) {
+    next(error);
+  }
+});
+
+export default mongoose.model('Usuario', usuarioSchema, 'usuario');
+
