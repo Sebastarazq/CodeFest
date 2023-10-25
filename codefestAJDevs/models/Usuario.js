@@ -34,19 +34,19 @@ const usuarioSchema = new mongoose.Schema({
   publicaciones: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Publicacion',
+      ref: 'publicacion',
     },
   ],
   likes: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Publicacion',
+      ref: 'publicacion',
     },
   ],
   compartidos: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Publicacion',
+      ref: 'publicacion',
     },
   ],
 });

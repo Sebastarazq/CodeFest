@@ -1,199 +1,92 @@
 extends ../layout/feed
 
 block content
-  div.navbar
-    div.navbar_menuicon#navicon
-      i.fa.fa-navicon
-    div.navbar_logo
-      img(src="images/logo.png", alt="")
-    div.navbar_page
-      span FEED
-    div.navbar_search
-      form(method="", action="/")
-        input(type="text", placeholder="Search people..")
-        button
-          i.fa.fa-search
-    div.navbar_icons
-      ul
-        li#friendsmodal
-          i.fa.fa-user-o
-          span#notification 5
-        li#messagesmodal
-          i.fa.fa-comments-o
-          span#notification 2
-        a(href="", style="color: white")
-          li
-            i.fa.fa-globe
-    div.navbar_user#profilemodal(style="cursor: pointer")
-      img(src="images/user.jpg", alt="")
-      span#navbar_user_top #{username}
+  nav.navbar.navbar-expand-lg.navbar-light.bg-light
+    .container
+      // Logo de la aplicación a la derecha
+      img.logo-app(src="img/logo.png", alt="Logo de la App", style="max-height: 90px;")
+
+      button.navbar-toggler(type="button", data-toggle="collapse", data-target="#navbarNav", aria-controls="navbarNav", aria-expanded="false", aria-label="Toggle navigation")
+        span.navbar-toggler-icon
+      .collapse.navbar-collapse#navbarNav
+        // Barra de búsqueda en el navbar, estilo tipo Facebook
+        form.navbar-form.ml-auto
+          .input-group
+            input.form-control(type="text", placeholder="Buscar en TechConnectU", class="search-bar")
+            .input-group-append
+              span.input-group-text
+                i.fa.fa-search
+                // Añadido este código para que el icono de la barra de búsqueda sea más grande
+                span.sr-only (Requerido)
+
+        ul.navbar-nav.ml-auto
+          li.nav-item
+            a.nav-link(href="#") Inicio
+          li.nav-item
+            a.nav-link(href="#") Explorar
+          li.nav-item
+            a.nav-link(href="#") Notificaciones
+          li.nav-item.dropdown
+            a.nav-link.dropdown-toggle(href="#", id="navbarDropdown", role="button", data.toggle="dropdown", aria-haspopup="true", aria-expanded="false")
+              div.navbar-profile.d-flex.align-items-center
+                img.navbar-profile-img.rounded-circle(src="images/user.jpg", alt="User", style="max-height: 32px; height: auto;")
+                span.navbar-profile-name #{username}
+                i.fa.fa-angle-down
+              .dropdown-menu.dropdown-menu-right(aria-labelledby="navbarDropdown")
+                a.dropdown-item(href="#") Perfil
+                a.dropdown-item(href="#") Listas
+                a.dropdown-item(href="#") Temas
+                a.dropdown-item(href="#") Momentos
+                .dropdown-divider
+                a.dropdown-item(href="#") Configuración y privacidad
+                a.dropdown-item(href="#") Cerrar sesión
+
+
+  .container
+    .row
+      .col-md-3
+        // Barra lateral izquierda
+        .sidebar
+          // Coloca aquí elementos de la barra lateral izquierda
+
+      .col-md-6
+        // Contenido principal
+        // Cuadro de publicación, estilo tipo Facebook
         br
-        p User
-      i.fa.fa-angle-down
+        .card.mb-4
+          .card-body
+            .d-flex
+              img.navbar-profile-img.rounded-circle(src="images/user.jpg", alt="User", style="max-width: 80px; height: auto; margin:4px;")
+              textarea#contenido.form-control(name="contenido", rows="4", placeholder="¿Qué estás pensando en TechConnectU?")
+            .mt-3.text-right
+              button.btn.btn-primary(type="button", data-toggle="modal", data-target="#publicarModal")
+                i.fa.fa-pencil
+                |  Publicar
 
+        each publicacion in publicaciones
+          .card.mb-4
+            .card-body
+              p.card-text= publicacion.contenido
+              hr
 
-  // Código de las publicaciones
-  div.rowfixed
-    each publicacion in publicaciones
-      div.left_row
-        div.left_row_profile
-          img#portada(src="images/portada.jpg")
-          div.left_row_profile
-            img#profile_pic(src="images/user.jpg")
-            span= publicacion.autor
-            p #{publicacion.likes} followers / #{publicacion.compartidos} follow
-        div.rowmenu
-          ul
-            li
-              a(href="index.html")
-                i.fa.fa-globe Newsfeed
-            li
-              a(href="profile.html")
-                i.fa.fa-user Profile
-            li
-              a(href="friends.html")
-                i.fa.fa-users Friends
-            li.primarymenu Explore
-              ul
-                li(style="border:none")
-                  a(href="#A") Activity
-                li(style="border:none")
-                  a(href="#") Friends
-                li(style="border:none")
-                  a(href="#") Groups
-                li(style="border:none")
-                  a(href="#") Pages
-                li(style="border:none")
-                  a(href="#") Saves
-            li.primarymenu Rapid Access
-              ul
-                li(style="border:none")
-                  a(href="#") Your-Page.html
-                li(style="border:none")
-                  a(href="#") Your-Group.html
-        div.right_row
-          div.row.border-radius
-            div.feed
-              div.feed_title
-                img(src="images/user-7.jpg", alt="")
-                span
-                  b Marina Valentine
-                  | shared a
-                  a(href="#") photo
-                  br
-                  p March 2 at 6:05pm
-              div.feed_content
-                div.feed_content_image
-                  img(src="images/photo-1.jpg", alt="")
-              div.feed_footer
-                ul.feed_footer_left
-                  li.hover-orange.selected-orange
-                    i.fa.fa-heart
-                    | 22k
-                  li
-                    span
-                      b Jimmy, Andrea
-                      | and 47 more liked this
-                ul.feed_footer_right
-                  li
-                    li.hover-orange.selected-orange
-                      i.fa.fa-share
-                      | 7k
-                  li.hover-orange
-                    i.fa.fa-comments-o
-                    | 860 comments
-              div.feedcomments
-                ul
-                  li
-                    div.feedcomments-user
-                      img(src="images/user-6.jpg")
-                      span
-                        b Mathilda Brinker
-                        br
-                        p 38 mins ago
-                    div.feedcomments-comment
-                      p
-                        | Ratione voluptatem sequi en lod nesciunt. Neque porro quisquam est, quinder dolorem ipsum quia dolor sit amet, consectetur adipisci velit en lorem ipsum duis aute irure dolor in reprehenderit in voluptate velit esse cillum.
-                    div.feedcomments-foot
-                      i.fa.fa-heart
-                      span 3 likes
-                      p
-                        a(href="#")
-                          i.fa.fa-reply
-                          | reply
-                  li
-                    div.feedcomments-user
-                      img(src="images/user.jpg")
-                      span
-                        b Jonh Hamstrong
-                        br
-                        p 1 hour ago
-                    div.feedcomments-comment
-                      p Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium der doloremque laudantium.
-                    div.feedcomments-foot
-                      i.fa.fa-heart
-                      span 44 likes
-                      p
-                        a(href="#")
-                          i.fa.fa-reply
-                          | reply
-              center
-                a(href="")
-                  div.loadmorefeed
-                    i.fa.fa-ellipsis-h
-          div.suggestions_row
-            div.row.shadow
-              div.row_title
-                span Friend Suggestions
-                a(href="friends.html") see more..
-              div.row_contain
-                img(src="images/user-7.jpg", alt="")
-                span
-                  b Francine Smith
-                  | 8 Friends in Common
-                button +
-              div.row_contain
-                img(src="images/user-2.jpg", alt="")
-                span
-                  b Hugh Wilson
-                  | 6 Friends in Common
-                button +
-              div.row_contain
-                img(src="images/user-6.jpg", alt="")
-                span
-                  b Karen Masters
-                  | 6 Friends in Common
-                button +
-            div.row.shadow
-              div.row_title
-                span Activity Feed
-              div.row_contain
-                img(src="images/user-7.jpg", alt="")
-                span
-                  | Marina Polson commented on Jason Mark’s
-                  a(href="" class="selected-orange") photo
-                  | ..
-              div.row_contain
-                img(src="images/user-2.jpg", alt="")
-                span
-                  | Jake Parker liked Nicholas Grissom’s
-                  a(href="" class="selected-orange") status update
-                  | ..
-              // Agrega más elementos de actividad aquí
-            div.row.shadow
-              div.row_title
-                span Pages You May Like
-                a(href="#") see more..
-              div.row_contain
-                img(src="images/group-1.png", alt="")
-                span
-                  a(href="")
-                    b The Marina Bar
-                  | Restaurant / Bar
-              div.row_contain
-                img(src="images/group-2.jpg", alt="")
-                span
-                  a(href="")
-                    b Caverna Roch
-                  | Rock / Band
-              // Agrega más páginas recomendadas aquí
+        // Modal para crear una nueva publicación
+        .modal#publicarModal(tabindex="-1", role="dialog")
+          .modal-dialog.modal-dialog-centered
+            .modal-content
+              .modal-header
+                h5.modal-title Nuevo publicación
+                button.close(data-dismiss="modal", aria-label="Close")
+                  span(aria-hidden="true") ×
+              .modal-body
+                // Formulario para crear una nueva publicación
+                form(action="/", method="POST")
+                  .form-group
+                    textarea#contenido.form-control(name="contenido", rows="4", placeholder="¿Qué estás pensando?")
+                .modal-footer
+                    button.btn.btn-secondary(data-dismiss="modal") Cancelar
+                    button.btn.btn-primary(type="submit", data-dismiss="modal") Publicación
+
+      .col-md-3
+        // Barra lateral derecha
+        .sidebar
+          // Coloca aquí elementos de la barra lateral derecha

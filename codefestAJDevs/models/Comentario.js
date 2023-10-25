@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 const comentarioSchema = new mongoose.Schema({
   autor: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Usuario', 
+    ref: 'usuario', 
     required: true,
   },
   contenido: {
@@ -16,9 +16,9 @@ const comentarioSchema = new mongoose.Schema({
   },
   publicacion: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Publicacion',
+    ref: 'publicacion',
     required: true,
   },
 });
 
-export default mongoose.model('Comentarios', comentarioSchema);
+export default mongoose.model('Comentario', usuarioSchema, 'comentario');

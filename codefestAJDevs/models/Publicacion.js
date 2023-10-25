@@ -1,10 +1,9 @@
-
 import mongoose from 'mongoose';
 
 const publicacionSchema = new mongoose.Schema({
   autor: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Usuario',
+    ref: 'usuario',
     required: true,
   },
   contenido: {
@@ -22,9 +21,13 @@ const publicacionSchema = new mongoose.Schema({
   comentarios: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Comentarios',
+      ref: 'comentario',
     },
   ],
+  fecha: {
+    type: Date,
+    default: Date.now, // Establece la fecha de creación por defecto como la fecha actual.
+  },
 });
 
-export default mongoose.model('Publicacion', publicacionSchema);
+export default mongoose.model('Publicacion', publicacionSchema, 'publicacion');
