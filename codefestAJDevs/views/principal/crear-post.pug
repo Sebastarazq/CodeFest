@@ -1,0 +1,15 @@
+extends ../layout/feed
+
+block content
+  .container
+    .row.justify-content-center
+      .col-md-8
+        .card
+          .card-body
+            h5.card-title Nuevo Publicación
+            form(action="/crear-publicacion", method="POST")
+              .form-group
+                label(for="contenido") ¿Qué estás pensando?
+                textarea#contenido.form-control(name="contenido", rows="4", placeholder="Escribe tu publicación aquí" required)
+              .text-right
+                button.btn.btn-primary(type="submit") Publicar

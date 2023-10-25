@@ -132,13 +132,11 @@ const mostrarFormularioIniciarSesion = (req, res) => {
     res.render('usuario/formulario-iniciar-sesion', { title: 'Iniciar Sesión' });
 };
   
-  // Otras funciones relacionadas con usuarios
-  // Por ejemplo, función para ver el perfil, actualizar información, etc.
   
-  // Exporta las funciones
+  // Otras funciones relacionadas con usuarios
 export { 
 registroUsuario, 
 iniciarSesion,
 mostrarFormularioIniciarSesion,
-mostrarFormularioRegistro
+mostrarFormularioRegistro,
 };

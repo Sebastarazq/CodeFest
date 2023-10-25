@@ -1,7 +1,7 @@
 // Importa las dependencias necesarias
 import express from 'express';
 import protegerRuta from '../middlewares/protegerRuta.js';
-import { mostrarTodasLasPublicaciones,crearPublicacion } from '../controllers/publicacionesController.js';
+import { mostrarTodasLasPublicaciones,crearPublicacion,mostrarFormularioCrearPublicacion } from '../controllers/publicacionesController.js';
 
 // Crea un enrutador para gestionar las rutas de publicaciones
 const router = express.Router();
@@ -9,8 +9,12 @@ const router = express.Router();
 // Ruta principal para mostrar todas las publicaciones (GET)
 router.get('/',protegerRuta, mostrarTodasLasPublicaciones);
 
+// Ruta para crear una nueva publicación (GET)
+router.get('/crear-publicacion', protegerRuta, mostrarFormularioCrearPublicacion);
 // Ruta para crear una nueva publicación (POST)
-router.post('/', protegerRuta, crearPublicacion);
+router.post('/crear-publicacion', protegerRuta, crearPublicacion);
+
+  
 
 /* // Ruta para mostrar una publicación específica (GET)
 router.get('/:id', mostrarUnaPublicacion);

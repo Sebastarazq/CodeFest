@@ -82,15 +82,21 @@ const crearPublicacion = async (req, res) => {
       await usuario.save();
       console.log('Usuario actualizado con la nueva publicación:', usuario);
   
-      res.status(201).json(publicacion);
+        res.redirect('/'); // Puedes cambiar la URL de redirección si es necesario
+
     } catch (error) {
       console.error('Error al crear la publicación:', error);
       res.status(500).json({ error: 'Error al crear la publicación' });
     }
 };
-  
+
+const mostrarFormularioCrearPublicacion = (req, res) => {
+    res.render('principal/crear-post', { title: 'Crear Publicación'});
+  };
 
 export {
   mostrarTodasLasPublicaciones,
-  crearPublicacion
+  mostrarFormularioCrearPublicacion,
+  crearPublicacion,
+
 };
