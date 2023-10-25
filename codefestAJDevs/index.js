@@ -5,7 +5,7 @@ import usuariosRoutes from './routes/usuariosRoutes.js';
 import cookieParser from 'cookie-parser';
 //import publicacionesRoutes from './routes/publicacionesRoutes.js';
 //import comentariosRoutes from './comentariosRoutes.js';
-//import appRoutes from './appRoutes.js'; // Importa las rutas relacionadas con la aplicación
+import appRoutes from './appRoutes.js'; // Importa las rutas relacionadas con la aplicación
 
 
 const app = express();
@@ -27,6 +27,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Ruta para la página de inicio
+app.use('/',appRoutes)
+
+//Ruta usuarios
 app.use('/',usuariosRoutes)
 
 
