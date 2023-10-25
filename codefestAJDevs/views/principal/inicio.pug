@@ -67,8 +67,13 @@ block content
         each publicacion in publicaciones
           .card.mb-4
             .card-body
-              p.card-text= publicacion.contenido
-              hr
+              .d-flex
+                img.navbar-profile-img.rounded-circle(src="images/user.jpg", alt="User", style="max-width: 80px; height: auto; margin:4px;")
+                p.card-text
+                strong #{username}
+                br
+                |  #{publicacion.contenido}
+            hr
 
         // Modal para crear una nueva publicación
         .modal#publicarModal(tabindex="-1", role="dialog")
