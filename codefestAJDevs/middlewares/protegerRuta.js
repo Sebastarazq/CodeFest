@@ -6,7 +6,7 @@ const protegerRuta = async (req, res, next) => {
   // Extraemos la cookie
   const { _token } = req.cookies;
   if (!_token) {
-    return res.redirect('/auth/login');
+    return res.redirect('/iniciar-sesion');
   }
 
   // Comprobar el token
@@ -20,10 +20,10 @@ const protegerRuta = async (req, res, next) => {
       req.usuario = usuario;
       return next();
     } else {
-      return res.redirect('/auth/login');
+      return res.redirect('/iniciar-sesion');
     }
   } catch (error) {
-    return res.clearCookie('_token').redirect('/auth/login');
+    return res.clearCookie('_token').redirect('/iniciar-sesion');
   }
 };
 

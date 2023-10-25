@@ -3,9 +3,9 @@ import path from 'path';
 import db from './config/db.js'; // Importa la conexión a la base de datos
 import usuariosRoutes from './routes/usuariosRoutes.js';
 import cookieParser from 'cookie-parser';
-//import publicacionesRoutes from './routes/publicacionesRoutes.js';
+import publicacionesRoutes from './routes/publicacionesRoutes.js';
 //import comentariosRoutes from './comentariosRoutes.js';
-import appRoutes from './appRoutes.js'; // Importa las rutas relacionadas con la aplicación
+//import appRoutes from './appRoutes.js'; // Importa las rutas relacionadas con la aplicación
 
 
 const app = express();
@@ -26,8 +26,11 @@ app.use(express.static('public'))
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Ruta para la página de inicio
-app.use('/',appRoutes)
+// Rutas de la app
+//app.use('/',appRoutes)
+
+//Rutas publicaciones
+app.use('/',publicacionesRoutes)
 
 //Ruta usuarios
 app.use('/',usuariosRoutes)

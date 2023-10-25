@@ -66,6 +66,20 @@ const registroUsuario = async (req, res) => {
 const iniciarSesion = async (req, res) => {
     try {
       const { email, contrasena } = req.body;
+      console.log(req.body)
+  
+      // Validación
+      await check('email', 'Correo electrónico no válido').isEmail().run(req);
+  
+      const errors = validationResult(req);
+  
+      if (!errors.isEmpty()) {
+        // Hubo errores de validación, muestra el formulario nuevamente con errores
+        return res.render('usuario/formulario-iniciar-sesion', {
+          title: 'Iniciar Sesión',
+          errors: errors.array(),
+        });
+      }
   
       // Realiza la autenticación, verifica el email
       const usuario = await Usuario.findOne({ email });
@@ -77,9 +91,9 @@ const iniciarSesion = async (req, res) => {
           error: 'Credenciales inválidas',
         });
       }
-
-        console.log('Contraseña recibida:', contrasena);
-        console.log('Contraseña almacenada:', usuario.contrasena);
+  
+      console.log('Contraseña recibida:', contrasena);
+      console.log('Contraseña almacenada:', usuario.contrasena);
   
       // Verifica la contraseña hasheada
       const contrasenaValida = await bcrypt.compare(contrasena, usuario.contrasena);
@@ -88,7 +102,7 @@ const iniciarSesion = async (req, res) => {
         // Contraseña incorrecta
         return res.render('usuario/formulario-iniciar-sesion', {
           title: 'Iniciar Sesión',
-          error: 'Credenciales inválidas',
+          error: 'La contraseña es incorrecta',
         });
       }
   
@@ -110,7 +124,8 @@ const iniciarSesion = async (req, res) => {
       console.error(error);
       res.status(500).json({ mensaje: 'Error en el servidor' });
     }
-};
+  };
+  
 // Controlador usuariosController.js
 const mostrarFormularioIniciarSesion = (req, res) => {
     // Aquí puedes renderizar el formulario de inicio de sesión
