@@ -1,6 +1,8 @@
 // Importa el modelo de usuario
 import Usuario from '../models/Usuario.js';
 import { check, validationResult } from 'express-validator';
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
 
 // Función para mostrar el formulario de registro
@@ -60,9 +62,54 @@ const registroUsuario = async (req, res) => {
 };
   
   
-  // Función para iniciar sesión
+// Función para iniciar sesión
 const iniciarSesion = async (req, res) => {
-    // Aquí implementa la lógica para iniciar sesión
+    try {
+      const { email, contrasena } = req.body;
+  
+      // Realiza la autenticación, verifica el email
+      const usuario = await Usuario.findOne({ email });
+  
+      if (!usuario) {
+        // El usuario no existe
+        return res.render('usuario/formulario-iniciar-sesion', {
+          title: 'Iniciar Sesión',
+          error: 'Credenciales inválidas',
+        });
+      }
+
+        console.log('Contraseña recibida:', contrasena);
+        console.log('Contraseña almacenada:', usuario.contrasena);
+  
+      // Verifica la contraseña hasheada
+      const contrasenaValida = await bcrypt.compare(contrasena, usuario.contrasena);
+  
+      if (!contrasenaValida) {
+        // Contraseña incorrecta
+        return res.render('usuario/formulario-iniciar-sesion', {
+          title: 'Iniciar Sesión',
+          error: 'Credenciales inválidas',
+        });
+      }
+  
+      // Si las credenciales son válidas, genera un token de autenticación
+      const token = jwt.sign({ id: usuario._id }, process.env.JWT_SECRET || 'proyectotechconnectUpros', {
+        expiresIn: '1h',
+      });
+  
+      // Envía el token como cookie o como respuesta JSON
+      res.cookie('_token', token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        maxAge: 3600000,
+      });
+  
+      // Puedes redirigir al usuario a una página de inicio
+      res.redirect('/');
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ mensaje: 'Error en el servidor' });
+    }
 };
 // Controlador usuariosController.js
 const mostrarFormularioIniciarSesion = (req, res) => {

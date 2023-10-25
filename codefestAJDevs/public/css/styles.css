@@ -1,0 +1,53 @@
+/* styles */
+
+a {
+    color: #3b5998;
+    text-decoration: none;
+  }
+  
+  .navbar {
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+  }
+  
+  .navbar-default {
+    background-color: #3b5998;
+    border-color: #3b5998;
+  }
+  
+  .navbar-default .navbar-brand {
+    color: #fff;
+  }
+  
+  .navbar-default .navbar-brand:focus,
+  .navbar-default .navbar-brand:hover {
+    color: #fff;
+  }
+  
+  .navbar-default .navbar-nav>li>a {
+    color: #fff;
+  }
+  
+  .navbar-default .navbar-nav>li>a:focus,
+  .navbar-default .navbar-nav>li>a:hover {
+    color: #fff;
+  }
+  
+  .divider:after,
+  .divider:before {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #e0e0e0;
+  } 
+  .btn-custom {
+    background: linear-gradient(45deg, purple, blue, red);
+    color: white;
+    margin: 15px; /* Agrega espacio entre los botones */
+    transition: background 0.3s; /* Transición para hover */
+}
+
+.btn-custom:hover {
+    background: linear-gradient(45deg, red, blue, purple); /* Cambia los colores al hacer hover */
+}

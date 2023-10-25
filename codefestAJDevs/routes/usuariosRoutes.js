@@ -1,7 +1,6 @@
 // Importa el controlador y otras dependencias
 import express from 'express';
 import { mostrarFormularioIniciarSesion, registroUsuario, iniciarSesion,mostrarFormularioRegistro } from '../controllers/usuariosController.js';
-
 const router = express.Router();
 
 
