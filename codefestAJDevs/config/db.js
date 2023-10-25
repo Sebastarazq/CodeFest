@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 // Define la URI de la base de datos
-const dbURI = 'mongodb://127.0.0.1/FacultadSistemasAppD'; // Reemplaza con la URI real de tu base de datos
+const dbURI = 'mongodb://127.0.0.1/FacultadSistemasAppDB';
 
 mongoose.connect(dbURI, {
   useNewUrlParser: true,

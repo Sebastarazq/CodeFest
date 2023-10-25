@@ -1,6 +1,11 @@
-import express from 'express';
+import express, { json } from 'express';
 import path from 'path';
 import db from './config/db.js'; // Importa la conexión a la base de datos
+import usuariosRoutes from './routes/usuariosRoutes.js';
+//import publicacionesRoutes from './routes/publicacionesRoutes.js';
+//import comentariosRoutes from './comentariosRoutes.js';
+//import appRoutes from './appRoutes.js'; // Importa las rutas relacionadas con la aplicación
+
 
 const app = express();
 
@@ -14,15 +19,13 @@ app.set('views','./views') // aca estaran los archivos
 app.use(express.static('public'))
 
 // Ruta para la página de inicio
-app.get('/', (req, res) => {
-  res.render('index', { title: 'Mi Aplicación Web con Pug' });
-});
+app.use('/',usuariosRoutes)
 
 
 // Iniciar el servidor después de que la conexión a la base de datos se haya establecido
 db.once('open', () => {
     const port = process.env.PORT || 3000;
     app.listen(port, () => {
-      console.log(`Servidor en ejecución en el puerto ${port}`);
+      console.log(`Servidor en ejecución en http://localhost:${port}`);
     });
   });
